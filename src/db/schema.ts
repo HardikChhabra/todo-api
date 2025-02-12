@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   pgTable,
   uuid,
@@ -20,6 +21,7 @@ export const tasks = pgTable("tasks", {
 export const createTaskSchema = createInsertSchema(tasks).omit({
   taskId: true,
   createdAt: true,
+  userId: true,
 });
 export const updateTaskSchema = createInsertSchema(tasks)
   .omit({
@@ -28,3 +30,22 @@ export const updateTaskSchema = createInsertSchema(tasks)
     createdAt: true,
   })
   .partial();
+
+export const users = pgTable("users", {
+  email: text("email").primaryKey(),
+  name: text("name").notNull(),
+  password: text("pwd").notNull(),
+});
+export const createUserSchema = createInsertSchema(users);
+export const loginSchema = createInsertSchema(users).pick({
+  email: true,
+  password: true,
+});
+
+export const usersRelations = relations(users, ({ many }) => ({
+  tasks: many(tasks),
+}));
+
+export const blogsRelations = relations(tasks, ({ one, many }) => ({
+  user: one(users, { fields: [tasks.userId], references: [users.email] }),
+}));

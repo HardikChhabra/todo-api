@@ -16,7 +16,7 @@ router.post("/", validateData(createTaskSchema), createTask);
 
 //R
 router.get("/:id", readTaskById);
-router.get("/user/:id", readAllTask); //remove id param after auth done
+router.get("/", readAllTask); //remove id param after auth done
 
 //U
 router.put("/:id", validateData(updateTaskSchema), updateTask);
