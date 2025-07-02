@@ -3,11 +3,19 @@ import taskRouter from "./routes/task/route.js";
 import authRouter from "./routes/auth/route.js";
 import { urlencoded, json } from "express";
 import { verifyToken } from "./middlewares/authMiddleware.js";
+import cors from "cors";
 import fs from "fs";
 import { marked } from "marked";
 import hljs from "highlight.js";
 const app = express();
-const port = 3000;
+/* const port = 3000; */
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 app.use(json());
 app.use(urlencoded({ extended: false }));
@@ -61,7 +69,7 @@ app.get("/", (req, res) => {
 app.use("/task", verifyToken, taskRouter);
 app.use("/auth", authRouter);
 
-app.listen(port, () => {
+/* app.listen(port, () => {
   console.log(`Listening on port : ${port}`);
-});
-/* export default app; */
+}); */
+export default app;
