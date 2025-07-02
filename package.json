@@ -1,9 +1,11 @@
 {
   "name": "todo-api",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "index.js",
   "type": "module",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --import=tsx --watch --env-file=.env src/index.ts",
     "db:push": "npx drizzle-kit push",
@@ -15,6 +17,7 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.3",
     "drizzle-zod": "^0.7.0",

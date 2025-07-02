@@ -5,9 +5,9 @@ import {
   readAllTask,
   readTaskById,
   updateTask,
-} from "./handler";
-import { validateData } from "../../middlewares/valiidationMiddleware";
-import { createTaskSchema, updateTaskSchema } from "../../db/schema";
+} from "./handler.js";
+import { validateData } from "../../middlewares/valiidationMiddleware.js";
+import { createTaskSchema, updateTaskSchema } from "../../db/schema.js";
 
 const router = Router();
 
