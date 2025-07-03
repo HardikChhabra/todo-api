@@ -5,6 +5,7 @@ import { urlencoded, json } from "express";
 import { verifyToken } from "./middlewares/authMiddleware.js";
 import cors from "cors";
 import fs from "fs";
+import path from "path";
 import { marked } from "marked";
 import hljs from "highlight.js";
 const app = express();
@@ -28,7 +29,7 @@ marked.setOptions({
   },
 });
 app.get("/", (req, res) => {
-  const readmePath = "../README.md";
+  const readmePath = path.resolve(__dirname, "../../README.md");
   fs.readFile(readmePath, "utf8", (err, data) => {
     if (err) return res.status(500).json({ error: "Could not read README" });
     const htmlContent = marked(data);
