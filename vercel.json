@@ -8,7 +8,7 @@
   ],
   "functions": {
     "src/index.ts": {
-      "includeFiles": ["README.md"]
+      "includeFiles": "README.md"
     }
   },
   "routes": [
