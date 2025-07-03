@@ -6,15 +6,11 @@
       "use": "@vercel/node"
     }
   ],
-  "functions": {
-    "src/index.ts": {
-      "includeFiles": "README.md"
-    }
-  },
   "routes": [
     {
       "src": "/(.*)",
       "dest": "src/index.ts"
     }
-  ]
+  ],
+  "includeFiles": ["README.md"]
 }
