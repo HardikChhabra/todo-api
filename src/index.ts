@@ -5,11 +5,10 @@ import { urlencoded, json } from "express";
 import { verifyToken } from "./middlewares/authMiddleware.js";
 import cors from "cors";
 import fs from "fs";
-import path from "path";
 import { marked } from "marked";
 import hljs from "highlight.js";
 const app = express();
-/* const port = 3000; */
+const port = 3001;
 const corsOptions = {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -29,7 +28,7 @@ marked.setOptions({
   },
 });
 app.get("/", (req, res) => {
-  const readmePath = "../../README.md";
+  const readmePath = "README.md";
   fs.readFile(readmePath, "utf8", (err, data) => {
     if (err) return res.status(500).json({ error: "Could not read README" });
     const htmlContent = marked(data);
