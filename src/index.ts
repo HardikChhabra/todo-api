@@ -69,7 +69,7 @@ app.get("/", (req, res) => {
 app.use("/task", verifyToken, taskRouter);
 app.use("/auth", authRouter);
 
-/* app.listen(port, () => {
+app.listen(port, () => {
   console.log(`Listening on port : ${port}`);
-}); */
-export default app;
+});
+/* export default app; */
