@@ -15,12 +15,24 @@ router.post(
     try {
       const data = req.cleanBody;
       data.password = await bcrypt.hash(data.password, 10);
-      const [user] = await db.insert(users).values(data).returning();
-      user.password = "";
-      const token = jwt.sign({ userId: user.email }, process.env.JWT_SECRET!, {
-        expiresIn: "30d",
-      });
-      res.status(200).json({ message: "User registered!", token });
+      const check_user = await db
+        .select()
+        .from(users)
+        .where(eq(users.name, data.name));
+      if (check_user) {
+        res.status(400).json({ error: "User Already exists!" });
+      } else {
+        const [user] = await db.insert(users).values(data).returning();
+        user.password = "";
+        const token = jwt.sign(
+          { userId: user.email },
+          process.env.JWT_SECRET!,
+          {
+            expiresIn: "30d",
+          }
+        );
+        res.status(200).json({ message: "User registered!", token });
+      }
     } catch (error) {
       res.status(500).json({ error });
     }
